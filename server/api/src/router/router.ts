@@ -1,15 +1,10 @@
 import express from "express";
-import { Response } from "express";
-import repos from "../../data/repos.json"
+import repoControllers from "../repos.controller/repos";
 
-const router = express.Router();
+const app = express.Router();
 
-// router.get("/", (_, res: Response)=>{
-//   res.send("Hello Pascal");
-// })
+app.use("/", repoControllers)
 
-router.use("/", (_, res: Response)=>{
-  res.status(200).json(repos);
-})
+// router.use('/repos', repoControllers);
 
-export default router
+export default app
