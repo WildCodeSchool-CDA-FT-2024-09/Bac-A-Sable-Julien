@@ -1,6 +1,9 @@
 ### readAll repos
 GET http://localhost:3000/api/repos 
 
+### read repos by id
+GET http://localhost:3000/api/repos/1
+
 
 ### readby status privet/public repos
 GET http://localhost:3000/api/repos?status=1
@@ -11,15 +14,26 @@ POST http://localhost:3000/api/repos/
 Content-Type: application/json
 
 {
-  "id": "ezrtryhtg",
-  "name": "repo1",
-  "url": "localhost:3000",
-  "isPrivate": "2"
+  "idGit": "ezrezefzefeetryhtg",
+  "name": 3,
+  "url": "localhoeeest:3000",
+  "isPrivate": 4
+}
+### modify  repo
+PUT http://localhost:3000/api/repos/2
+Content-Type: application/json
+
+{
+  "id":2,
+  "idGit": "test",
+  "name": 3,
+  "url": "localhoeeest:3000",
+  "isPrivate": 1
 }
 
 
 ### delete  repo
-DELETE http://localhost:3000/api/repos/id:ezrtryhtg
+DELETE http://localhost:3000/api/repos/1
 Content-Type: application/json
 
 

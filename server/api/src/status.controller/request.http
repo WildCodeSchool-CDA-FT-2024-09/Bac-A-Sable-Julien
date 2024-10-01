@@ -1,0 +1,25 @@
+### readstatus
+GET http://localhost:3000/api/status 
+
+### rstatus by id
+GET http://localhost:3000/api/status/1
+
+### create  repo
+POST http://localhost:3000/api/status/
+Content-Type: application/json
+
+{
+  "label": "public"
+}
+### modify  repo
+PUT http://localhost:3000/api/status/3
+Content-Type: application/json
+
+{
+  "label": "javascript"
+}
+
+
+### delete  repo
+DELETE http://localhost:3000/api/status/3
+Content-Type: application/json
