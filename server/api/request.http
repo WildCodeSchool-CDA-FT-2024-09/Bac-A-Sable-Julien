@@ -1,0 +1,56 @@
+### readAll repos
+GET http://localhost:3000/api/repos 
+
+### read repos by id
+GET http://localhost:3000/api/repos/1
+
+
+### readby status privet/public repos
+GET http://localhost:3000/api/repos?status=1
+
+
+### create  repo
+POST http://localhost:3000/api/repos/
+Content-Type: application/json
+
+{
+  "idGit": "ezrezefzefeetryhtg",
+  "name": 3,
+  "url": "localhoeeest:3000",
+  "isPrivate": 4
+}
+### modify  repo
+PUT http://localhost:3000/api/repos/2
+Content-Type: application/json
+
+{
+  "id":2,
+  "idGit": "test",
+  "name": 3,
+  "url": "localhoeeest:3000",
+  "isPrivate": 1
+}
+
+
+### delete  repo
+DELETE http://localhost:3000/api/repos/1
+Content-Type: application/json
+
+
+###
+GET http://localhost:3000/api/langs
+
+
+###
+GET http://localhost:3000/api/langs?language=HTML
+
+
+###
+POST http://localhost:3000/api/langs
+Content-Type: application/json
+
+{
+  "id": "3",
+  "label": "repo1",
+
+}

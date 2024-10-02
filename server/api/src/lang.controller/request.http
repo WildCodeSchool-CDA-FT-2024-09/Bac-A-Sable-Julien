@@ -1,0 +1,51 @@
+### readAll langs
+GET http://localhost:3000/api/langs 
+
+### read langs by id
+GET http://localhost:3000/api/langs/2
+
+### create  repo
+POST http://localhost:3000/api/langs/
+Content-Type: application/json
+
+{
+"label": "HTML"
+}
+
+# {
+# "label": "Css"
+# }
+
+# {
+# "label": "Javascript"
+# }
+
+# {
+# "label": "React"
+# }
+
+
+
+
+### modify  repo
+PUT http://localhost:3000/api/langs/2
+Content-Type: application/json
+
+{
+  "idGit": "efze435yhtg",
+  "name": "langs 2",
+  "url": "localhoeeest:3000",
+  "status": "2"
+}
+
+
+### delete  repo
+DELETE http://localhost:3000/api/langs/3
+Content-Type: application/json
+
+
+
+
+
+
+
