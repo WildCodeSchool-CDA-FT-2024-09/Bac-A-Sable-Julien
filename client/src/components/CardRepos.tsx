@@ -9,27 +9,51 @@ export interface Repo {
     id: number;
     name: string;
     languages: Language[];
-    url: string; // Assurez-vous que le type est bien défini
+    url: string;
+    status: {
+        label: string;
+    };
 }
 
 interface CardReposProps {
-    repos: Repo[]; // Utiliser Repo[] pour indiquer un tableau de dépôts
+    repos: Repo[];
+    setCommentOpen: (open: boolean) => void; // Ajout des props manquantes
+    commentOpen: boolean; // Ajout des props manquantes
+    statusComment: () => void; // Ajout des props manquantes
 }
 
-const CardRepos: React.FC<CardReposProps> = ({ repos }) => {
+const CardRepos: React.FC<CardReposProps> = ({
+    repos,
+    statusComment,
+}) => {
+    // const statusComment = ()=>{
+    //     setCommentOpen(!commentOpen)
+    // }
+
     return (
-        <section className="section-card-repos">
+        <section
+            className="section-card-repos"
+            onClick={statusComment}
+        >
             {repos.map((e) => (
                 <article key={e.id}>
-                    <p>nom : {e.name}</p>
+                    <p>{e.name}</p>
                     <section>
-                      <ul>
-                                                {e.languages.map((lang) => (
-                          <li key={lang.id}>{lang.label}</li>
-                        ))}
-                      </ul>
-
-                        <a className="section-card-lien" key={e.url} href={e.url} target="_blank">accédez au repo</a>
+                        <p>langage utilisé :</p>
+                        <ul>
+                            {e.languages.map((lang) => (
+                                <li key={lang.id}>{lang.label}</li>
+                            ))}
+                        </ul>
+                        <a
+                            className={`section-card-lien ${
+                                e.status.label === "Privé" ? "desableLink" : ""
+                            }`}
+                            href={e.url}
+                            target="_blank"
+                        >
+                            accédez au repo
+                        </a>
                     </section>
                 </article>
             ))}

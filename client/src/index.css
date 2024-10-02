@@ -1,5 +1,6 @@
 @import "styles/card-repos.css";
 @import "styles/home-page.css";
+@import "styles/comment.css";
 
 *{
   margin: 0;

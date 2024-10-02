@@ -1,38 +1,54 @@
-.section-card-repos{
-  background-color:rgb(146, 140, 114);
-  padding: 20px;
-  width: 90%;
-  height: 80%;
-  overflow : hidden;
-  overflow-y: scroll;
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: center;
-  gap:20px;
-  border-radius: 15px;
-  /* flex-direction: column; */
-  article{
-    border: 1px solid black;
-    width: 30%;
-    height: 200px;
-    background-color: aquamarine;
+.section-card-repos {
+    background-color: rgb(33 33 33 / 88%);
+    padding: 20px;
+    width: 90%;
+    max-width: 1000px;
+    height: 80%;
+    overflow: hidden;
+    overflow-y: scroll;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    gap: 30px;
     border-radius: 15px;
-    box-shadow: -5px 5px 15px black;
-    
-    section{
-      margin-top: 10px;
-      display: flex;
-      flex-direction: column;
-      justify-content: space-around;
-      height: 90% ;
+    margin-top: 10px;
+    padding: 50px;
+    /* flex-direction: column; */
+    article {
+        border: 1px solid black;
+        width: 30%;
+        max-width: 250px;
+        height: 200px;
+        background-color: rgb(218 227 224);
+        border-radius: 15px;
+        box-shadow: -5px 5px 15px black;
+        padding: 20px;
+        transition: 150ms;
+        margin-top: 10px;
+        section {
+            margin-top: 10px;
+            display: flex;
+            flex-direction: column;
+            justify-content: space-around;
+            height: 90%;
 
-      ul{
-        list-style: none;
-      }
+            ul {
+                list-style: none;
+            }
+        }
     }
-  }
 }
 
-.section-card-lien{
-  text-wrap: wrap;}
+.section-card-lien {
+    text-wrap: wrap;
+}
+
+.desableLink {
+    pointer-events: none;
+    color: grey;
+}
+
+.section-card-repos > article:hover {
+    transform: scale(1.05);
+    transition: 150ms;
+}
