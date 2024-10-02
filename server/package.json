@@ -7,7 +7,8 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "fetch": "gh repo list julien44830 --json  id,name,url,languages,isPrivate > ./api/data/raw.json",
     "create": "ts-node-dev ./api/data/create.ts",
-    "dev": "ts-node-dev ./api/src/index.ts"
+    "dev": "ts-node-dev ./api/src/index.ts",
+    "seed": "ts-node-dev ./api/src/db/seed.ts"
   },
   "author": "",
   "license": "ISC",

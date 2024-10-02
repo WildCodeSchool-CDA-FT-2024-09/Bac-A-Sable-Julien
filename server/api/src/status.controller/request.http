@@ -9,7 +9,7 @@ POST http://localhost:3000/api/status/
 Content-Type: application/json
 
 {
-  "label": "public"
+  "label": "privé"
 }
 ### modify  repo
 PUT http://localhost:3000/api/status/3

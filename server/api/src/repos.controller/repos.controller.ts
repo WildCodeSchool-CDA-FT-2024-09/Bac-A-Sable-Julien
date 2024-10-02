@@ -45,15 +45,11 @@ repoControllers.post('/', async (req: Request, res: Response) => {
     repo.name = req.body.name;
     repo.url = req.body.url;
 
-
     const status = await Status.findOneOrFail({ where: { id: req.body.isPrivate } });
     repo.status = status;
     
-    if (req.body.languages && req.body.languages.length > 0) {
       const languageEntities = await Language.findBy({id: In(req.body.languages)});
-      repo.languages = languageEntities; // Associer les langues au repo
-    }
-
+      repo.languages = languageEntities;
 
     await repo.save();
     res.status(201).json({ message: "Repo created successfully", repo });

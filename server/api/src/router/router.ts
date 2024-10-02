@@ -1,7 +1,7 @@
 import express from "express";
 import repoControllers from "../repos.controller/repos.controller";
 import langController from "../lang.controller/lang.controller";
-import statusController from "../status.controller/status";
+import statusController from "../status.controller/status.controller";
 
 const app = express.Router();
 

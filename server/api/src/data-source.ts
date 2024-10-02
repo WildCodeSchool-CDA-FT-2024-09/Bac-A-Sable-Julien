@@ -9,4 +9,5 @@ export const dataSource = new DataSource({
  database: "./api/src/db/db.sqlite",
  entities: [Repo, Language, Status],
  synchronize: true,
+//  logging: true
 });

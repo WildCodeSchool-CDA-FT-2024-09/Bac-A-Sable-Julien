@@ -40,9 +40,7 @@ langController.post('/', async (req: Request, _res: Response) => {
   const lang = new Language();
 
   lang.label = req.body.label;
-
   lang.save()
-
 })
 
 langController.put('/:id', async (req: Request, res: Response) => {

@@ -21,7 +21,7 @@ Content-Type: application/json
   "name": "langage repos 2",
   "url": "localhoeeest:3000",
   "status": 2,
-  "languages": [0]
+  "languages": []
 }
 
 # {

@@ -17,6 +17,6 @@ export class Language extends BaseEntity {
   label: string;
 
   @ManyToMany(() => Repo, repo => repo.languages)
-  repos: Repo[];
+  repos : Repo[];
 }
 

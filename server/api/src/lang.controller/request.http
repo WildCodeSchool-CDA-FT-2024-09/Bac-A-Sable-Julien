@@ -8,9 +8,9 @@ GET http://localhost:3000/api/langs/2
 POST http://localhost:3000/api/langs/
 Content-Type: application/json
 
-# {
-# "label": "HTML"
-# }
+{
+"label": "HTML"
+}
 
 # {
 # "label": "Css"
