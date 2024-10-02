@@ -1,0 +1,38 @@
+.section-card-repos{
+  background-color:rgb(146, 140, 114);
+  padding: 20px;
+  width: 90%;
+  height: 80%;
+  overflow : hidden;
+  overflow-y: scroll;
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: center;
+  gap:20px;
+  border-radius: 15px;
+  /* flex-direction: column; */
+  article{
+    border: 1px solid black;
+    width: 30%;
+    height: 200px;
+    background-color: aquamarine;
+    border-radius: 15px;
+    box-shadow: -5px 5px 15px black;
+    
+    section{
+      margin-top: 10px;
+      display: flex;
+      flex-direction: column;
+      justify-content: space-around;
+      height: 90% ;
+
+      ul{
+        list-style: none;
+      }
+    }
+  }
+}
+
+.section-card-lien{
+  text-wrap: wrap;}

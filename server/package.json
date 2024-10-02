@@ -8,7 +8,8 @@
     "fetch": "gh repo list julien44830 --json  id,name,url,languages,isPrivate > ./api/data/raw.json",
     "create": "ts-node-dev ./api/data/create.ts",
     "dev": "ts-node-dev ./api/src/index.ts",
-    "seed": "ts-node-dev ./api/src/db/seed.ts"
+    "seed": "ts-node-dev ./api/src/db/seed.ts",
+    "synchro": "npm run fetch && npm run create && npm run seed"
   },
   "author": "",
   "license": "ISC",
@@ -16,6 +17,7 @@
     "@types/express": "^4.17.21",
     "@types/node": "^22.7.0",
     "class-validator": "^0.14.1",
+    "cors": "^2.8.5",
     "dot-env": "^0.0.1",
     "dotenv": "^16.4.5",
     "express": "^4.21.0",
@@ -24,5 +26,8 @@
     "sqlite3": "^5.1.7",
     "ts-node-dev": "^2.0.0",
     "typeorm": "^0.3.20"
+  },
+  "devDependencies": {
+    "@types/cors": "^2.8.17"
   }
 }
