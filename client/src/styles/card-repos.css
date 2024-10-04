@@ -41,6 +41,7 @@
 
 .section-card-lien {
     text-wrap: wrap;
+    z-index: 5;
 }
 
 .desableLink {

@@ -22,21 +22,18 @@ interface CardReposProps {
     statusComment: () => void; // Ajout des props manquantes
 }
 
-const CardRepos: React.FC<CardReposProps> = ({
-    repos,
-    statusComment,
-}) => {
-    // const statusComment = ()=>{
-    //     setCommentOpen(!commentOpen)
-    // }
-
+const CardRepos: React.FC<CardReposProps> = ({ repos, statusComment, setId }) => {
+    
     return (
-        <section
-            className="section-card-repos"
-            onClick={statusComment}
-        >
+        <section className="section-card-repos">
             {repos.map((e) => (
-                <article key={e.id}>
+                <article
+                    key={e.id}
+                    onClick={() => {
+                        statusComment();  // Appel de la première fonction
+                        setId(e.id);   // Appel de la deuxième fonction
+                    }}
+                >
                     <p>{e.name}</p>
                     <section>
                         <p>langage utilisé :</p>

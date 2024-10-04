@@ -9,6 +9,8 @@ interface SectionReposProps {
   setCommentOpen: (open: boolean) => void; 
   commentOpen: boolean;
   statusComment: ()=> void;
+  setId: ()=> void;
+  
 }
 
 export interface Language {
@@ -32,7 +34,8 @@ export default function SectionRepos({
     repoByLang,
     setCommentOpen,
     commentOpen,
-    statusComment
+    statusComment,
+    setId
 }: SectionReposProps) {
 
 
@@ -76,6 +79,7 @@ export default function SectionRepos({
                 commentOpen={commentOpen}
                 setCommentOpen={setCommentOpen}
                 statusComment={statusComment}
+                setId={setId}
             />
         </>
     );
