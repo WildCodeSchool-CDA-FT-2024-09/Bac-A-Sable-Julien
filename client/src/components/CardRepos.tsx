@@ -1,60 +1,34 @@
-import React from "react";
-
-export interface Language {
-    id: number; // ou string selon ton modèle de données
-    label: string;
-}
-
-export interface Repo {
-    id: number;
-    name: string;
-    languages: Language[];
-    url: string;
-    status: {
-        label: string;
-    };
-}
+import type { Repo } from "../@type/interface";
 
 interface CardReposProps {
-    repos: Repo[];
-    setCommentOpen: (open: boolean) => void; // Ajout des props manquantes
-    commentOpen: boolean; // Ajout des props manquantes
-    statusComment: () => void; // Ajout des props manquantes
+    repo: Repo;
 }
 
-const CardRepos: React.FC<CardReposProps> = ({ repos, statusComment, setId }) => {
-    
+const CardRepos: React.FC<CardReposProps> = ({ repo }) => {
+
     return (
-        <section className="section-card-repos">
-            {repos.map((e) => (
-                <article
-                    key={e.id}
-                    onClick={() => {
-                        statusComment();  // Appel de la première fonction
-                        setId(e.id);   // Appel de la deuxième fonction
-                    }}
+        <article>
+            <p>{repo.name}</p>
+            <section>
+                <p>langage utilisé :</p>
+                <ul>
+                    {repo.languages.map((lang) => (
+                        <li key={lang.id}>{lang.label}</li>
+                    ))}
+                </ul>
+                <a
+                    className={`section-card-lien ${
+                        repo.status && repo.status.label === "Privé"
+                            ? "desableLink"
+                            : ""
+                    }`}
+                    href={repo.url}
+                    target="_blank"
                 >
-                    <p>{e.name}</p>
-                    <section>
-                        <p>langage utilisé :</p>
-                        <ul>
-                            {e.languages.map((lang) => (
-                                <li key={lang.id}>{lang.label}</li>
-                            ))}
-                        </ul>
-                        <a
-                            className={`section-card-lien ${
-                                e.status.label === "Privé" ? "desableLink" : ""
-                            }`}
-                            href={e.url}
-                            target="_blank"
-                        >
-                            accédez au repo
-                        </a>
-                    </section>
-                </article>
-            ))}
-        </section>
+                    Accédez au repo
+                </a>
+            </section>
+        </article>
     );
 };
 
