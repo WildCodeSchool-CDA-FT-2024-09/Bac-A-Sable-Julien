@@ -11,7 +11,6 @@ const { BACKEND_FILE } = process.env;
 export const dataSource = new DataSource({
  type: "sqlite",
  database: `${BACKEND_FILE}`,
-//  database: "./api/src/db/db.sqlite",
  entities: [Repo, Language, Status],
  synchronize: true,
 //  logging: true

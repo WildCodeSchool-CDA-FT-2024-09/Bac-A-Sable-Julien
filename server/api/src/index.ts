@@ -1,27 +1,23 @@
-import express from 'express';
-import * as dotenv from "dotenv";
-import cors from 'cors';
-import router from './router/router';
+import { ApolloServer } from "@apollo/server";
+import { startStandaloneServer } from "@apollo/server/standalone";
+import { buildSchema } from "type-graphql";
 import "reflect-metadata";
-import { dataSource } from './data-source';
+import { dataSource } from "./data-source";
+import RepoResolver from "./resolver/repo.resolver";
 
-dotenv.config();
-const port = process.env.PORT;
-const app = express();
-
-app.use(cors({
-  origin: [
-    process.env.VITE_FRONTEND_URL as string,
-    // 'http://localhost:5173'
-  ]
-})
-);
-
-app.use(express.json())
-app.use('/api', router)
-
-app.listen(port, async () => {
+(async () => {
   await dataSource.initialize();
-  console.log(`✅ http://localhost:${port} it's okay ✅`);
-});
+  const schema = await buildSchema({
+    resolvers: [RepoResolver],
+  });
 
+  const server = new ApolloServer({
+    schema,
+  });
+
+  const { url } = await startStandaloneServer(server, {
+    listen: { port: 4000 },
+  });
+
+  console.log(`🚀  Server ready at: ${url}`);
+})();
