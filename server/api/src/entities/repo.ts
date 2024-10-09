@@ -37,6 +37,8 @@ export class Repo extends BaseEntity {
   @Column()
   name: string;
 
+
+  @Field(() => [Language], { nullable: true })
   @ManyToMany(() => Language, language => language.repos, { cascade: true })
   @JoinTable()
   languages?: Language[];

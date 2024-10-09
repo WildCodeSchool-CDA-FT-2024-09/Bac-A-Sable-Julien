@@ -27,6 +27,8 @@ class RepoInput implements Partial<Repo> {
 
 @Resolver(Repo)
 export default class RepoResolver {
+
+
   // Methode GET pour tous les repos
   @Query(() => [Repo])
   async GetAllRepo() {
@@ -40,6 +42,25 @@ export default class RepoResolver {
     return repos;
   }
 
+
+  @Query(() => [Repo])
+  async getAllReposFilter(@Arg("filter", { nullable: true }) filter: string) {
+      if (filter) {
+          return await Repo.find({
+              where: {
+                  languages: {
+                      label: String(filter),
+                  },
+              },
+              relations: { languages: true, status: true }, // Assurez-vous que la relation "languages" est incluse
+          });
+      }
+      return await Repo.find({
+          relations: { languages: true, status: true }, // Relations avec languages et status
+      });
+  }
+
+
   @Query(() => [LightRepo])
   async lightrepos() {
     const repos = await Repo.find();
@@ -47,47 +68,53 @@ export default class RepoResolver {
     return repos;
   }
 
-  @Query(() => LightRepo, { nullable: true })
-  async lightrepoById(@Arg("id", () => ID) id: number) {
-    const repo = await Repo.findOne({
-      where: { id },
-      select: ["id", "name", "url", "isFavorite"],
-    });
-
-    if (!repo) {
-      throw new Error(`Repo with id ${id} not found`);
-    }
-    console.log('%c⧭', 'color: #735656', repo);
-    return repo;
-
+  @Query(() => [Repo])
+  async reposWithLanguages() {
+    return await Repo.find({ relations: ["languages"] }); // Récupère les dépôts avec leurs langages
   }
 
 
-  @Mutation(() => Repo)
-  async createNewRepo(@Arg("data") newRepo: RepoInput) {
-    console.info(newRepo);
-    const repo = new Repo();
+@Query(() => LightRepo, { nullable: true })
+async lightrepoById(@Arg("id", () => ID) id: number) {
+  const repo = await Repo.findOne({
+    where: { id },
+    select: ["id", "name", "url", "isFavorite"],
+  });
 
-    repo.id = newRepo.id;
-    repo.idGit = newRepo.idGit;
-    repo.name = newRepo.name;
-    repo.url = newRepo.url;
-
-    const status = await Status.findOneOrFail({
-      where: { id: +newRepo.isPrivate },
-    });
-    repo.status = status;
-
-    await repo.save();
-    console.log("repo", repo);
-    const myRepo = await Repo.findOneOrFail({
-      where: { id: newRepo.id },
-      relations: {
-        languages: true,
-        status: true,
-      },
-    });
-    console.log("myRepo", myRepo);
-    return myRepo;
+  if (!repo) {
+    throw new Error(`Repo with id ${id} not found`);
   }
+  console.log('%c⧭', 'color: #735656', repo);
+  return repo;
+
+}
+
+
+@Mutation(() => Repo)
+async createNewRepo(@Arg("data") newRepo: RepoInput) {
+  console.info(newRepo);
+  const repo = new Repo();
+
+  repo.id = newRepo.id;
+  repo.idGit = newRepo.idGit;
+  repo.name = newRepo.name;
+  repo.url = newRepo.url;
+
+  const status = await Status.findOneOrFail({
+    where: { id: +newRepo.isPrivate },
+  });
+  repo.status = status;
+
+  await repo.save();
+  console.log("repo", repo);
+  const myRepo = await Repo.findOneOrFail({
+    where: { id: newRepo.id },
+    relations: {
+      languages: true,
+      status: true,
+    },
+  });
+  console.log("myRepo", myRepo);
+  return myRepo;
+}
 } 
