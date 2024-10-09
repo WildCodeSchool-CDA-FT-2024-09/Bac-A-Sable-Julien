@@ -6,9 +6,18 @@ import {
 } from "typeorm";
 
 import { Repo } from "./repo";
-import { Field, ObjectType } from "type-graphql";
+import { Field, InputType, ObjectType } from "type-graphql";
+
+@InputType()
+export class LanguageInput {
+
+  @Field()
+  @Column()
+  label: string;
+}
 
 @ObjectType()
+@InputType()
 @Entity()
 export class Language extends BaseEntity {
 
@@ -20,6 +29,7 @@ export class Language extends BaseEntity {
   @Column()
   label: string;
 
+  @Field(() => [Repo], { nullable: true }) 
   @ManyToMany(() => Repo, repo => repo.languages)
   repos : Repo[];
 }

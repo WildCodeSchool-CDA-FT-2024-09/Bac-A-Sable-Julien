@@ -1,20 +1,22 @@
+import { Link } from "react-router-dom";
 import type { Repo } from "../@type/interface";
 
 interface CardReposProps {
     repo: Repo;
 }
+// name={repo.name}
+// url={repo.url}
+// id={repo.id}
+// isFavorite={repo.isFavorite}
 
 const CardRepos: React.FC<CardReposProps> = ({ repo }) => {
-
     return (
-        <article>
+        <Link to={`/detail/${repo.id}`} className ="card">
             <p>{repo.name}</p>
             <section>
                 <p>langage utilisé :</p>
                 <ul>
-                    {repo.languages.map((lang) => (
-                        <li key={lang.id}>{lang.label}</li>
-                    ))}
+                    <li>bientôt disponible</li>
                 </ul>
                 <a
                     className={`section-card-lien ${
@@ -28,7 +30,7 @@ const CardRepos: React.FC<CardReposProps> = ({ repo }) => {
                     Accédez au repo
                 </a>
             </section>
-        </article>
+        </Link>
     );
 };
 

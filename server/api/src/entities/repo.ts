@@ -11,10 +11,7 @@ import {
 import { Status } from "./status";
 import { Language } from "./language";
 
-import {
-  Min,
-  Max,
-} from "class-validator"
+// import {} from "class-validator"
 import { Field, ObjectType, ID } from "type-graphql";
 
 @ObjectType()
@@ -23,27 +20,30 @@ export class Repo extends BaseEntity {
   @Field()
   @PrimaryGeneratedColumn()
   id: number;
-  
+
   @Field()
   @Column()
   idGit: string;
-  
+
   @Field()
   @Column()
   url: string;
-  
+
   @Field(() => Status)
   @ManyToOne(() => Status, status => status.id)
-  @Min(1)
-  @Max(2)
   status: Status;
-
+  
+  @Field()
   @Column()
   name: string;
 
-  @ManyToMany(() => Language, language => language.repos,{cascade: true})
+  @ManyToMany(() => Language, language => language.repos, { cascade: true })
   @JoinTable()
-  languages ? : Language[];
+  languages?: Language[];
+
+  @Field()
+  @Column({ default: false }) 
+  isFavorite: boolean; 
 
 }
 

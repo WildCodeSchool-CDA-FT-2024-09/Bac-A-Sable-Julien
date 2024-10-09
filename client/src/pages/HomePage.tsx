@@ -1,53 +1,44 @@
-// import { useState } from "react";
 import { AnimatedBackground } from "animated-backgrounds";
-import axios from "axios";
-import CardRepos from "../components/CardRepos";
+import { useQuery, gql } from "@apollo/client";
+import { Repo } from "../@type/interface";
 import SelectLang from "../components/SelectLang";
-import type { Language } from "../@type/interface";
+import CardRepos from "../components/CardRepos";
 
-import { useLoaderData } from "react-router-dom";
-import { useState, useEffect, Key } from "react";
+const GET_REPOS = gql`
+    query GetRepoLang {
+        GetAllRepo {
+            id
+            idGit
+            url
+            status {
+                id
+                label
+            }
+            name
+        }
+        GetAllLang {
+            id
+            label
+        }
+    }
+`;
 
 export default function HomePage() {
-    const [repos, setRepos] = useState<Repo>([]);
-    const lang = useLoaderData() as Language[];
-    const [selectedLang, setSelectedLang] = useState<number>();
-    console.log("%c⧭", "color: #807160", selectedLang);
+    const { loading, error, data, refetch } = useQuery(GET_REPOS);
+    console.log("%c⧭", "color: #e57373", data);
 
-    useEffect(() => {
-        const fetchData = async () => {
-            try {
-                const response = await axios.get("http://localhost:3000/api/repos", {
-                    params: {
-                        languages: selectedLang, // Le langage que tu souhaites filtrer
-                    },
-                });
-    
-                setRepos(response.data); // Affecter les dépôts récupérés
-            } catch (error) {
-                console.error(
-                    "Erreur lors de la récupération des dépôts :",
-                    error
-                );
-            }
-        };
-    
-        fetchData(); // Exécute la fonction fetchData
-    }, [selectedLang]); // Dépendance sur selectedLang
-
+    if (loading) return <h1>loading ...</h1>;
+    if (error) return <p>Erreur: {error.message}</p>;
 
     return (
         <main>
             <AnimatedBackground animationName="rainbowWaves" />
-            <h1>Les projets de Julien </h1>
-            <SelectLang
-                lang={lang}
-                setSelectedLang={setSelectedLang}
-            />
+            <h1>Les projets de Julien</h1>
+            <SelectLang lang={data.GetAllLang} />
+            <button onClick={refetch}>Recharger les dépôts</button>
             <section className="section-card-repos">
-                {repos.map((repo) => (
+                {data.GetAllRepo.map((repo: Repo) => (
                     <CardRepos
-                        selectedLang={selectedLang}
                         key={repo.id}
                         repo={repo}
                     />

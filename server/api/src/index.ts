@@ -4,11 +4,12 @@ import { buildSchema } from "type-graphql";
 import "reflect-metadata";
 import { dataSource } from "./data-source";
 import RepoResolver from "./resolver/repo.resolver";
+import LanguageResolver from "./resolver/lang.resolver";
 
 (async () => {
   await dataSource.initialize();
   const schema = await buildSchema({
-    resolvers: [RepoResolver],
+    resolvers: [RepoResolver,LanguageResolver],
   });
 
   const server = new ApolloServer({

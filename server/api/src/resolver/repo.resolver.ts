@@ -1,4 +1,4 @@
-import { Arg, Field, InputType, Mutation, Query, Resolver } from "type-graphql";
+import { Arg, Field, ID, InputType, Mutation, Query, Resolver } from "type-graphql";
 import { LightRepo, Repo } from "../entities/repo";
 import { Status } from "../entities/status";
 // import { Language } from "../entities/language";
@@ -18,6 +18,9 @@ class RepoInput implements Partial<Repo> {
   @Field()
   isPrivate: number;
 
+  @Field()
+  idGit: string;
+
   // @Field()
   // languages: [Language]
 }
@@ -26,7 +29,7 @@ class RepoInput implements Partial<Repo> {
 export default class RepoResolver {
   // Methode GET pour tous les repos
   @Query(() => [Repo])
-  async fullrepos() {
+  async GetAllRepo() {
     const repos = await Repo.find({
       relations: {
         status: true,
@@ -40,9 +43,25 @@ export default class RepoResolver {
   @Query(() => [LightRepo])
   async lightrepos() {
     const repos = await Repo.find();
-    console.info(repos);
+    // console.info(repos);
     return repos;
   }
+
+  @Query(() => LightRepo, { nullable: true })
+  async lightrepoById(@Arg("id", () => ID) id: number) {
+    const repo = await Repo.findOne({
+      where: { id },
+      select: ["id", "name", "url", "isFavorite"],
+    });
+
+    if (!repo) {
+      throw new Error(`Repo with id ${id} not found`);
+    }
+    console.log('%c⧭', 'color: #735656', repo);
+    return repo;
+
+  }
+
 
   @Mutation(() => Repo)
   async createNewRepo(@Arg("data") newRepo: RepoInput) {
@@ -50,6 +69,7 @@ export default class RepoResolver {
     const repo = new Repo();
 
     repo.id = newRepo.id;
+    repo.idGit = newRepo.idGit;
     repo.name = newRepo.name;
     repo.url = newRepo.url;
 

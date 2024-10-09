@@ -1,16 +1,16 @@
 import type { Language } from "../@type/interface";
 
 interface SelectLangProps {
-    setSelectedLang: React.Dispatch<React.SetStateAction<string | undefined>>; // Ou le type que tu souhaites
+    // setSelectedLang: React.Dispatch<React.SetStateAction<string | undefined>>; // Ou le type que tu souhaites
     lang: Language[];
 }
 
 
-const SelectLang: React.FC<SelectLangProps> = ({ lang, setSelectedLang }) => {
+const SelectLang: React.FC<SelectLangProps> = ({ lang }) => {
     return (
         <>
             <select
-                onChange={(e) => setSelectedLang(e.target.value)} // Passe la valeur sélectionnée
+                // onChange={(e) => setSelectedLang(e.target.value)} // Passe la valeur sélectionnée
                 className="home-page-select"
             >
                 <option value="">-- Sélectionnez un langage --</option>
