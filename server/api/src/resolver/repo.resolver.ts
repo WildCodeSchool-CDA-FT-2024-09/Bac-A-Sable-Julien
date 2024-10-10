@@ -84,7 +84,7 @@ async lightrepoById(@Arg("id", () => ID) id: number) {
   if (!repo) {
     throw new Error(`Repo with id ${id} not found`);
   }
-  console.log('%c⧭', 'color: #735656', repo);
+  // console.info('%c⧭', 'color: #735656', repo);
   return repo;
 
 }
@@ -92,7 +92,6 @@ async lightrepoById(@Arg("id", () => ID) id: number) {
 
 @Mutation(() => Repo)
 async createNewRepo(@Arg("data") newRepo: RepoInput) {
-  console.info(newRepo);
   const repo = new Repo();
 
   repo.id = newRepo.id;
@@ -106,7 +105,7 @@ async createNewRepo(@Arg("data") newRepo: RepoInput) {
   repo.status = status;
 
   await repo.save();
-  console.log("repo", repo);
+  // console.info("repo", repo);
   const myRepo = await Repo.findOneOrFail({
     where: { id: newRepo.id },
     relations: {
@@ -114,7 +113,7 @@ async createNewRepo(@Arg("data") newRepo: RepoInput) {
       status: true,
     },
   });
-  console.log("myRepo", myRepo);
+  // console.info("myRepo", myRepo);
   return myRepo;
 }
 } 

@@ -1,6 +1,5 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import {  Language, LanguageInput } from "../entities/language";
-// import { Status } from "../entities/status";
 
 @Resolver(Language)
 export default class LanguageResolver {
@@ -12,16 +11,9 @@ export default class LanguageResolver {
         repos: true,
       },
     });
-    console.info(repos);
+    // console.info(repos);
     return repos;
   }
-
-  // @Query(() => [LightRepo])
-  // async lightrepos() {
-  //   const repos = await Repo.find();
-  //   console.info(repos);
-  //   return repos;
-  // }
 
   @Mutation(() => Language)
   async createNewLanguage(@Arg("data") newLanguage: LanguageInput) {
@@ -31,14 +23,14 @@ export default class LanguageResolver {
     lang.label = newLanguage.label;
 
     await lang.save();
-    console.log("lang", lang);
+    console.info("lang", lang);
     const myLang = await Language.findOne({
       where: { id: lang.id },
       relations: {
         repos: true,
       },
     });
-    console.log("myLang", myLang);
+    console.info("myLang", myLang);
     return myLang;
   }
 } 
