@@ -14,15 +14,10 @@ const GET_REPOS_ID = gql`
 
 export default function DetailRepo() {
     const { id } = useParams();
-    console.log("%c⧭", "color: #408059", id);
-
     const { loading, error, data, refetch } = useQuery(GET_REPOS_ID, {
-        variables: { lightrepoByIdId: id }, // Correction ici
+        variables: { lightrepoByIdId: id }, 
     });
-    
-    console.log("%c⧭", "color: #ffcc00", data);
 
-    // Gestion de l'état de chargement et d'erreur
     if (loading) return <p>Chargement...</p>;
     if (error) return <p>Erreur: {error.message}</p>;
 

@@ -3,7 +3,8 @@ import { useQuery, gql } from "@apollo/client";
 import { Repo } from "../@type/interface";
 import SelectLang from "../components/SelectLang";
 import CardRepos from "../components/CardRepos";
-import { useState } from "react";
+import { useSearchParams } from "react-router-dom";
+import { useState, useEffect } from "react";
 
 const GET_REPOS = gql`
     query GetAllReposFilter($filter: String) {
@@ -28,14 +29,27 @@ const GET_REPOS = gql`
 `;
 
 export default function HomePage() {
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [selectLang, setSelectLang] = useState<string | undefined>("");
 
-    const[selectLang, setSelectLang] = useState<string | undefined>('');
-    console.log('%c⧭', 'color: #99adcc', selectLang);
+        // Mettre à jour l'URL lorsque la langue sélectionnée change
+        useEffect(() => {
+            if (selectLang) {
+                setSearchParams({ filter: selectLang });
+            }
+        }, [selectLang, setSearchParams]);
+    
+        // Lire la langue depuis les paramètres de l'URL au chargement
+        useEffect(() => {
+            const filter = searchParams.get("filter");
+            if (filter) {
+                setSelectLang(filter);
+            }
+        }, [searchParams]);
 
     const { loading, error, data, refetch } = useQuery(GET_REPOS, {
-        variables: { filter: selectLang }, 
+        variables: { filter: selectLang },
     });
-    console.log("%c⧭", "color: #e57373", data);
 
     if (loading) return <h1>loading ...</h1>;
     if (error) return <p>Erreur: {error.message}</p>;
@@ -44,12 +58,15 @@ export default function HomePage() {
         <main>
             <AnimatedBackground animationName="rainbowWaves" />
             <h1>Les projets de Julien</h1>
-            <SelectLang lang={data.GetAllLang} setSelectLang={setSelectLang} />
+            <SelectLang
+                lang={data.GetAllLang}
+                setSelectLang={setSelectLang}
+            />
             <button
                 onClick={() => {
                     refetch()
                         .then(({ data }) => {
-                            console.log("%c⧭", "color: #ffcc00", data); // Faites attention à ce que vous affichez ici
+                            console.log("%c⧭", "color: #ffcc00", data);
                         })
                         .catch((error) => {
                             console.error(error);
