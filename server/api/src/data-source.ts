@@ -9,9 +9,9 @@ dotenv.config();
 const { BACKEND_FILE } = process.env;
 
 export const dataSource = new DataSource({
- type: "sqlite",
- database: `${BACKEND_FILE}`,
- entities: [Repo, Language, Status],
- synchronize: true,
-//  logging: true
+  type: "sqlite",
+  database: `${BACKEND_FILE}`,
+  entities: [Repo, Language, Status],
+  synchronize: true,
+  //  logging: true
 });

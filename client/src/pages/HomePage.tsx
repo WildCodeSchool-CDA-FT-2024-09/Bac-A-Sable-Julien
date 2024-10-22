@@ -1,14 +1,9 @@
 import { AnimatedBackground } from "animated-backgrounds";
-// import { Repo } from "../@type/interface";
 import SelectLang from "../components/SelectLang";
 import CardRepos from "../components/CardRepos";
 import { useSearchParams } from "react-router-dom";
 import { useState, useEffect } from "react";
-
-import {
-    useGetAllReposFilterQuery,
-    GetAllReposFilterQuery,
-} from "../generated/graphql-type";
+import { useGetAllReposFilterQuery } from "../generated/graphql-type";
 
 export default function HomePage() {
     const [searchParams, setSearchParams] = useSearchParams();

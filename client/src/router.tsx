@@ -6,13 +6,12 @@ import "./index.css";
 const router = createBrowserRouter([
     {
         path: "/",
-        element: <HomePage/>,
+        element: <HomePage />,
     },
     {
         path: "/detail/:id",
-        element: <DetailRepo/>,
+        element: <DetailRepo />,
     },
 ]);
-
 
 export default router;
