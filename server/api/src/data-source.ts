@@ -1,17 +1,16 @@
 import { DataSource } from "typeorm";
 import { Status } from "./entities/status";
-import * as dotenv from "dotenv";
-// import { School } from "../src/entities/school";
 import { Language } from "../src/entities/language";
 import { Repo } from "../src/entities/repo";
 
-dotenv.config();
-const { BACKEND_FILE } = process.env;
-
 export const dataSource = new DataSource({
-  type: "sqlite",
-  database: `${BACKEND_FILE}`,
+  type: "postgres",
+  host: "db",
+  port: 5432,
+  username: "postgres",
+  password: "password",
+  database: "postgres",
   entities: [Repo, Language, Status],
   synchronize: true,
-  //  logging: true
+  logging: false
 });

@@ -27,6 +27,7 @@ export default function HomePage() {
     const { loading, error, data, refetch } = useGetAllReposFilterQuery({
         variables: { filter: selectLang },
     });
+    console.log("%c⧭", "color: #33cc99", data);
 
     if (loading) return <h1>loading ...</h1>;
     if (error) return <p>Erreur: {error.message}</p>;

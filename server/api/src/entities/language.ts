@@ -29,8 +29,8 @@ export class Language extends BaseEntity {
   @Column()
   label: string;
 
-  @Field(() => [Repo], { nullable: true }) 
+  @Field(() => [Repo], { nullable: true })
   @ManyToMany(() => Repo, repo => repo.languages)
-  repos : Repo[];
+  repos: Repo[];
 }
 
