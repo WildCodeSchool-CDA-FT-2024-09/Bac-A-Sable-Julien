@@ -4,5 +4,8 @@
     },
     "scripts": {
         "dev": "concurrently \"npm run dev --prefix server\" \"npm run dev --prefix client\""
+    },
+    "dependencies": {
+        "@apollo/server": "^4.11.0"
     }
 }

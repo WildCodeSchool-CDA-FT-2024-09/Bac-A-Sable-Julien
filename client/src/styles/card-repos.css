@@ -14,7 +14,7 @@
     margin-top: 10px;
     padding: 50px;
     /* flex-direction: column; */
-    article {
+    .card {
         border: 1px solid black;
         width: 30%;
         max-width: 250px;
@@ -41,6 +41,7 @@
 
 .section-card-lien {
     text-wrap: wrap;
+    z-index: 5;
 }
 
 .desableLink {
@@ -48,7 +49,24 @@
     color: grey;
 }
 
-.section-card-repos > article:hover {
+.section-card-repos > .card:hover {
     transform: scale(1.05);
     transition: 150ms;
+}
+
+.link-img-like{
+    display: flex;
+    flex-direction:row !important;
+    align-items: end;
+
+    a{
+        width: 70%;
+        cursor: pointer;
+    }
+
+    img{
+        height: 24px;
+        width:  24px;
+        cursor: pointer;
+    }
 }
