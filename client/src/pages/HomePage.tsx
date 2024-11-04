@@ -1,62 +1,67 @@
-import { useState } from "react";
-import { useLoaderData } from "react-router-dom";
 import { AnimatedBackground } from "animated-backgrounds";
-
-import Comment from "../components/Comment";
-import SectionRepos from "../components/SectionRepos";
-
-export interface Language {
-    id: number;
-    label: string;
-}
-
-export interface Repo {
-  id: number;
-  name: string;
-  languages: Language[];
-  url: string;
-  status: {
-      label: string;
-  };
-}
+import SelectLang from "../components/SelectLang";
+import CardRepos from "../components/CardRepos";
+import { useSearchParams } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { useGetAllReposFilterQuery } from "../generated/graphql-type";
 
 export default function HomePage() {
-    const repos = useLoaderData() as Repo[];
-    const [lang, setLang] = useState<string>("");
-    const [commentOpen, setCommentOpen] = useState<boolean>(false);
+    const [searchParams, setSearchParams] = useSearchParams();
+    const [selectLang, setSelectLang] = useState<string | undefined>("");
 
-    console.log('%c⧭', 'color: #00bf00', commentOpen);
+    // Mettre à jour l'URL lorsque la langue sélectionnée change
+    useEffect(() => {
+        if (selectLang) {
+            setSearchParams({ filter: selectLang });
+        }
+    }, [selectLang, setSearchParams]);
 
-    // Filtrer les repos en fonction de la langue sélectionnée
-    const repoByLang = repos.filter((repo) =>
-        repo.languages.some(
-            (language) => language.label.toLowerCase() === lang.toLowerCase()
-        )
-    );
+    // Lire la langue depuis les paramètres de l'URL au chargement
+    useEffect(() => {
+        const filter = searchParams.get("filter");
+        if (filter) {
+            setSelectLang(filter);
+        }
+    }, [searchParams]);
 
-    // Fonction pour afficher les commentaires
-    const statusComment = () => {
-        setCommentOpen(!commentOpen);
-    };
+    const { loading, error, data, refetch } = useGetAllReposFilterQuery({
+        variables: { filter: selectLang },
+    });
+    console.log("%c⧭", "color: #33cc99", data);
 
-    return (
-        <main>
-            <AnimatedBackground animationName="rainbowWaves" />
-            <h1>Les {repos.length} projets de Julien </h1>
-            {
-              !commentOpen ?
-              <SectionRepos 
-                  repos={repos} 
-                  lang={lang} 
-                  setLang={setLang} 
-                  repoByLang={repoByLang} 
-                  commentOpen={commentOpen} 
-                  setCommentOpen={setCommentOpen} 
-                  statusComment={statusComment}
-              />
-              :
-              <Comment commentOpen={commentOpen} setCommentOpen={setCommentOpen} statusComment={statusComment} />
-            }
-        </main>
-    );
+    if (loading) return <h1>loading ...</h1>;
+    if (error) return <p>Erreur: {error.message}</p>;
+    if (data) {
+        return (
+            <main>
+                <AnimatedBackground animationName="rainbowWaves" />
+                <h1>Les projets de Julien</h1>
+                <SelectLang
+                    lang={data?.GetAllLang || []}
+                    setSelectLang={setSelectLang}
+                />
+                <button
+                    onClick={() => {
+                        refetch()
+                            .then(({ data }) => {
+                                console.log("%c⧭", "color: #ffcc00", data);
+                            })
+                            .catch((error) => {
+                                console.error(error);
+                            });
+                    }}
+                >
+                    Recharger les dépôts
+                </button>{" "}
+                <section className="section-card-repos">
+                    {data.getAllReposFilter.map((repo) => (
+                        <CardRepos
+                            key={repo.id}
+                            repo={repo}
+                        />
+                    ))}
+                </section>
+            </main>
+        );
+    }
 }

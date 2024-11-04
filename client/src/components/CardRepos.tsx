@@ -1,62 +1,41 @@
-import React from "react";
-
-export interface Language {
-    id: number; // ou string selon ton modèle de données
-    label: string;
-}
-
-export interface Repo {
-    id: number;
-    name: string;
-    languages: Language[];
-    url: string;
-    status: {
-        label: string;
-    };
-}
+import { useState } from "react";
+import { Link } from "react-router-dom";
+import type { Repo } from "../@type/interface";
 
 interface CardReposProps {
-    repos: Repo[];
-    setCommentOpen: (open: boolean) => void; // Ajout des props manquantes
-    commentOpen: boolean; // Ajout des props manquantes
-    statusComment: () => void; // Ajout des props manquantes
+    repo: Repo;
 }
 
 const CardRepos: React.FC<CardReposProps> = ({
-    repos,
-    statusComment,
+    repo,
 }) => {
-    // const statusComment = ()=>{
-    //     setCommentOpen(!commentOpen)
-    // }
+    const [isFavorite, setIsfavorite] = useState<boolean>(false);
 
     return (
         <section
-            className="section-card-repos"
-            onClick={statusComment}
+            
+            className="card"
         >
-            {repos.map((e) => (
-                <article key={e.id}>
-                    <p>{e.name}</p>
-                    <section>
-                        <p>langage utilisé :</p>
-                        <ul>
-                            {e.languages.map((lang) => (
-                                <li key={lang.id}>{lang.label}</li>
-                            ))}
-                        </ul>
-                        <a
-                            className={`section-card-lien ${
-                                e.status.label === "Privé" ? "desableLink" : ""
-                            }`}
-                            href={e.url}
-                            target="_blank"
-                        >
-                            accédez au repo
-                        </a>
-                    </section>
-                </article>
-            ))}
+            <p>{repo.name}</p>
+            <section>
+                <p>langage utilisé :</p>
+                <ul>
+                    <li>bientôt disponible</li>
+                </ul>
+                <section className="link-img-like">
+                    <Link
+                        className={`section-card-lien ${
+                            repo.status && repo.status.label === "Privé"
+                                ? "desableLink"
+                                : ""
+                        }`}
+                        to={`/detail/${repo.id}`}
+                    >
+                        détail du repo
+                    </Link>
+                    <img onClick={()=>setIsfavorite(!isFavorite)} src={isFavorite ? "/heart_like.png":"/heart_dislike.png"} alt="" className="favorite" />
+                </section>
+            </section>
         </section>
     );
 };
