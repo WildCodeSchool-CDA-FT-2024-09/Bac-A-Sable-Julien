@@ -9,6 +9,7 @@ import LanguageResolver from "./resolver/lang.resolver";
 
 dotenv.config();
 const { PORT } = process.env;
+console.log('%c⧭', 'color: #ff0000', PORT);
 
 (async () => {
   await dataSource.initialize();
@@ -21,7 +22,8 @@ const { PORT } = process.env;
   });
 
   const { url } = await startStandaloneServer(server, {
-    listen: { host: '0.0.0.0', port: Number(PORT) }
+    // listen: { host: '0.0.0.0', port: Number(PORT) }
+    listen: { host: '0.0.0.0', port: 3000 }
   });
 
   console.log(`🚀  Server ready at: ${url}`);
