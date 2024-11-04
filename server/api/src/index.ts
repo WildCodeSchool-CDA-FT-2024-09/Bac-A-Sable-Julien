@@ -8,7 +8,8 @@ import RepoResolver from "./resolver/repo.resolver";
 import LanguageResolver from "./resolver/lang.resolver";
 
 dotenv.config();
-// const { PORT } = process.env;
+const { PORT } = process.env;
+console.log("PORT : ", PORT);
 
 (async () => {
   await dataSource.initialize();
@@ -22,7 +23,7 @@ dotenv.config();
 
   const { url } = await startStandaloneServer(server, {
     // listen: { host: '0.0.0.0', port: Number(PORT) }
-    listen: { host: '0.0.0.0', port: 4000 },
+    listen: { host: '0.0.0.0', port: Number(PORT) },
   });
 
   console.log(`🚀  Server ready at: ${url}`);
