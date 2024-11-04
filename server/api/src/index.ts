@@ -21,7 +21,7 @@ const { PORT } = process.env;
   });
 
   const { url } = await startStandaloneServer(server, {
-    listen: { port: Number(PORT) }
+    listen: { host: '0.0.0.0', port: Number(PORT) }
   });
 
   console.log(`🚀  Server ready at: ${url}`);
