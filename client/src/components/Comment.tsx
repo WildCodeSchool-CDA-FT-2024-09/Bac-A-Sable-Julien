@@ -40,7 +40,9 @@ const Comment: React.FC<CommentProps> = ({ statusComment, repoId }) => {
             className="commentaire"
             onClick={statusComment}
         >
-            ici bientôt les commentaire du repo {repo.name}
+            {repo.length > 0
+                ? `ici bientôt les commentaire du repo ${repo[0].name}`
+                : "Chargement..."}{" "}
         </p>
     );
 };
