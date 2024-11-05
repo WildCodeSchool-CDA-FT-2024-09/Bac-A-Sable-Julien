@@ -8,15 +8,7 @@ dotenv.config();
 const { POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_USER, POSTGRES_HOST } =
   process.env;
 
-console.log("Connecting to:", {
-  host: POSTGRES_HOST,
-  user: POSTGRES_USER,
-  database: POSTGRES_DB,
-  port: 5432
-});
-
 export const dataSource = new DataSource({
-
   type: "postgres",
   host: POSTGRES_HOST,
   port: 5432,
