@@ -9,6 +9,7 @@ import LanguageResolver from "./resolver/lang.resolver";
 
 
 const port = parseInt(process.env.PORT || "4000", 10);
+console.log('%c⧭', 'color: #00e600', port);
 
 dotenv.config();
 
