@@ -24,7 +24,7 @@ dotenv.config();
   });
 
   const { url } = await startStandaloneServer(server, {
-    listen: { host: '0.0.0.0', port },
+    listen: { port },
   });
   console.log(`🚀  Server ready at: ${url}`);
 })();
