@@ -6,10 +6,12 @@ import { dataSource } from "./data-source";
 import RepoResolver from "./resolver/repo.resolver";
 import LanguageResolver from "./resolver/lang.resolver";
 
+const port = parseInt(process.env.PORT || "4000", 10);
+
 (async () => {
   await dataSource.initialize();
   const schema = await buildSchema({
-    resolvers: [RepoResolver,LanguageResolver],
+    resolvers: [RepoResolver, LanguageResolver],
   });
 
   const server = new ApolloServer({
@@ -17,7 +19,7 @@ import LanguageResolver from "./resolver/lang.resolver";
   });
 
   const { url } = await startStandaloneServer(server, {
-    listen: { port: 4000 },
+    listen: { port },
   });
 
   console.log(`🚀  Server ready at: ${url}`);
