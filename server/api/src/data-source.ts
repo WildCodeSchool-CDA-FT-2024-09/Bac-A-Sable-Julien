@@ -14,8 +14,8 @@ dotenv.config();
 //   synchronize: false,
 // });
 
-
-const { POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_USER, POSTGRES_HOST } = process.env;
+const { POSTGRES_PASSWORD, POSTGRES_DB, POSTGRES_USER, POSTGRES_HOST } =
+  process.env;
 
 export const dataSource = new DataSource({
   type: "postgres",
